@@ -1,6 +1,6 @@
 {
   "name": "observable",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Object with attribute getters and setters with events for watching for attribute changes",
   "scripts": ["index.js"]
 }
