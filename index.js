@@ -1,9 +1,12 @@
+var emitter = require('emitter');
+var type = require('type');
+
 function Observable(obj){
-  if(obj) return mixin(obj);
-  this.attributes = {};
+  if( !(this instanceof Observable) ) return mixin(obj);
+  this.set(obj);
 };
 
-_.extend(Observable.prototype, Backbone.Events);
+emitter(Observable.prototype);
 
 function mixin(obj) {
   for (var key in Observable.prototype) {
@@ -13,40 +16,37 @@ function mixin(obj) {
 }
 
 Observable.prototype.set = function(key, value, options) {
+  this.attributes = this.attributes || {};
+  var self = this;
   options = options || {};
-
-  if( _.isObject(key) === true ) {
+  if( type(key) === "object" ) {
     options = value;
-    _(key).each(function(value, key) {
-      this._set(key, value, options);
-    }, this);
+    Object.keys(key).forEach(function(name){
+      self._set(name, key[name], options);
+    });
   }
   else {
     this._set(key, value, options);
   }
-
   return this;
 };
 
 Observable.prototype._set = function(key, val, options) {
+  this.attributes = this.attributes || {};
   options = options || {};
   var silent = options.silent || false;
   var previous = this.attributes[key];
   if( previous === val ) return; // No change
   this.attributes[key] = val;
-
   if(!silent) {
-    this.trigger('change', key, val, previous);
-    this.trigger('change:'+key, val, previous);
+    this.emit('change', key, val, previous);
+    this.emit('change:'+key, val, previous);
+    this.emit('change '+key, val, previous);
   }
 };
 
 Observable.prototype.get = function(key) {
   return this.attributes[key];
-};
-
-Observable.prototype.each = function(callback, context) {
-  _(this.attributes).each(callback, context);
 };
 
 module.exports = Observable;

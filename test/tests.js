@@ -1,0 +1,69 @@
+var Observable = require('observable');
+var assert = require('assert');
+
+describe('Observable', function(){
+
+  beforeEach(function(){
+    this.obj = new Observable();
+  });
+
+  it('should set key and value', function(){
+    this.obj.set('foo', 'bar');
+    assert( this.obj.attributes.foo === 'bar' );
+  });
+
+  it('should set key and value with options', function(){
+    this.obj.set('foo', 'bar', { silent: true });
+    assert( this.obj.attributes.foo === 'bar' );
+  });
+
+  it('should set key and value with an object', function(){
+    this.obj.set({ 'foo' : 'bar' });
+    assert( this.obj.attributes.foo === 'bar' );
+  });
+
+  it('should set key and value with an object and options', function(){
+    this.obj.set({ 'foo' : 'bar' }, { silent: true });
+    assert( this.obj.attributes.foo === 'bar');
+  });
+
+  it('should be silent with an object', function(){
+    var match = false;
+    this.obj.on('change:foo', function(){
+      match = true;
+    });
+    this.obj.set({ 'foo' : 'bar' }, { silent: true });
+    assert( match === false );
+  });
+
+  it('should be silent with a key value', function(){
+    var match = false;
+    this.obj.on('change:foo', function(){
+      match = true;
+    });
+    this.obj.set('foo', 'bar', { silent: true });
+    assert( match === false );
+  });
+
+  it('should emit reactive-style events', function(){
+    var match = false;
+    this.obj.on('change foo', function(){
+      match = true;
+    });
+    this.obj.set('foo', 'bar');
+    assert(match === true);
+  });
+
+  it('should set properties in constructor', function(){
+    var obj = new Observable({ 'foo':'bar' });
+    assert( obj.get('foo') === 'bar' );
+  });
+
+  it('should work as a mixin', function(){
+    var obj = {};
+    Observable(obj);
+    obj.set('foo', 'bar');
+    assert( obj.get('foo') === 'bar' );
+  });
+
+});
