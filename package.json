@@ -1,0 +1,32 @@
+{
+  "name": "observable-component",
+  "version": "0.2.0",
+  "description": "Get and set properties and watch for changes",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha_phantomjs test/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@ntlvmgit01:nib-components/observable.git"
+  },
+  "keywords": [
+    "observe",
+    "component",
+    "model"
+  ],
+  "author": "Anthony Short",
+  "license": "BSD",
+  "gitHead": "a5a79d55a049e47babed5dd9f90af7a11ad878c1",
+  "dependencies": {
+    "emitter-component": "~1.0.1",
+    "type-component": "0.0.1"
+  },
+  "browser": {
+    "emitter": "emitter-component",
+    "type": "type-component"
+  }
+}
