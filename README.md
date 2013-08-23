@@ -39,3 +39,16 @@ model.set('color', 'red', { silent: true });
 // Get the attribute
 model.get('color') // red
 ```
+
+You can mix it in too:
+
+```js
+function Thingy(){
+   this.set('color', 'red');
+}
+
+Observable(Thingy.prototype);
+
+var thing = new Thingy();
+thing.get('color') // 'red'
+```
