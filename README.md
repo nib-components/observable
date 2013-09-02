@@ -52,3 +52,29 @@ Observable(Thingy.prototype);
 var thing = new Thingy();
 thing.get('color') // 'red'
 ```
+
+Create attributes that work with Reactive:
+
+```js
+var model = new Observable();
+
+model.attr('name')
+    .attr('surname')
+    .attr('title');
+    
+model.name('Barry');
+model.name(); // Barry
+```
+
+Access deep object properties using [tea-properties](https://github.com/qualiancy/tea-properties):
+
+```js
+var model = new Observable();
+
+model.on('change foo.bar.baz', function(val){
+   console.log(val);
+});
+
+model.set('foo.bar.baz', 'doobie');
+model.get('foo.bar.baz'); // 'doobie'
+```
