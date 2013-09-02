@@ -1,9 +1,10 @@
 var emitter = require('emitter');
 var type = require('type');
+var properties = require('tea-properties');
 
 function Observable(obj){
   if( !(this instanceof Observable) ) return mixin(obj);
-  this.set(obj);
+  if(obj) this.set(obj);
 };
 
 emitter(Observable.prototype);
@@ -35,9 +36,9 @@ Observable.prototype._set = function(key, val, options) {
   this.attributes = this.attributes || {};
   options = options || {};
   var silent = options.silent || false;
-  var previous = this.attributes[key];
+  var previous = this.get(key);
   if( previous === val ) return; // No change
-  this.attributes[key] = val;
+  properties.set(this.attributes, key, val);
   if(!silent) {
     this.emit('change', key, val, previous);
     this.emit('change:'+key, val, previous);
@@ -46,7 +47,15 @@ Observable.prototype._set = function(key, val, options) {
 };
 
 Observable.prototype.get = function(key) {
-  return this.attributes[key];
+  return properties.get(this.attributes, key);
+};
+
+Observable.prototype.attr = function(name) {
+  this[name] = function(val){
+    if(val == null) return this.get(name);
+    this.set(name, val);
+  };
+  return this;
 };
 
 module.exports = Observable;

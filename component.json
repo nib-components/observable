@@ -1,11 +1,12 @@
 {
   "name": "observable",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Object with attribute getters and setters with events for watching for attribute changes",
   "scripts": ["index.js"],
   "dependencies": {
     "component/type": "*",
-    "component/emitter": "*"
+    "component/emitter": "*",
+    "qualiancy/tea-properties": "0.1.0"
   },
   "development": {
     "component/assert": "*"

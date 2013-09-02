@@ -1,6 +1,6 @@
 {
   "name": "observable-component",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Get and set properties and watch for changes",
   "main": "index.js",
   "directories": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@ntlvmgit01:nib-components/observable.git"
+    "url": "git@github.com:anthonyshort/observable.git"
   },
   "keywords": [
     "observe",
@@ -20,10 +20,10 @@
   ],
   "author": "Anthony Short",
   "license": "BSD",
-  "gitHead": "a5a79d55a049e47babed5dd9f90af7a11ad878c1",
   "dependencies": {
     "emitter-component": "~1.0.1",
-    "type-component": "0.0.1"
+    "type-component": "0.0.1",
+    "tea-properties": "0.1.0"
   },
   "browser": {
     "emitter": "emitter-component",

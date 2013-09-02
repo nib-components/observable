@@ -66,4 +66,43 @@ describe('Observable', function(){
     assert( obj.get('foo') === 'bar' );
   });
 
+  it('should set nested properties', function(){
+    this.obj.set('foo.bar', 'baz');
+    assert( this.obj.attributes.foo.bar === 'baz' );
+  });
+
+  it('should get nested properties', function(){
+    this.obj.set('foo.bar', 'baz');
+    assert( this.obj.get('foo.bar') === 'baz' );
+  });
+
+  it('should emit change events for nested properties', function(){
+    var match = false;
+    this.obj.set('foo.bar', 'baz');
+    this.obj.on('change foo.bar', function(){
+      match = true;
+    });
+    this.obj.set('foo.bar', 'zab');
+    assert( match === true );
+  });
+
+  it('should create attributes', function(){
+    this.obj.attr('name').set('name', 'Barry');
+    assert( this.obj.name() === 'Barry' );
+  });
+
+  it('should create setters', function(){
+    this.obj.attr('name').name('Barry');
+    assert( this.obj.name() === 'Barry' );
+  });
+
+  it('should emit events with setters', function(){
+    var match = false;
+    this.obj.on('change name', function(){
+      match = true;
+    });
+    this.obj.attr('name').name('Barry');
+    assert( match === true );
+  });
+
 });
