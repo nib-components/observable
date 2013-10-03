@@ -58,4 +58,24 @@ Observable.prototype.attr = function(name) {
   return this;
 };
 
+Observable.reactive = function(reactive) {
+  reactive.adapter = {
+    get: function(obj, attr){
+      if( typeof obj[attr] === 'function' ) {
+        return obj[attr]();
+      }
+      return obj.get(attr);
+    },
+    set: function(obj, attr, value){
+      obj.set(attr, value);
+    },
+    subscribe: function(obj, attr, fn){
+      obj.on('change ' + attr, fn);
+    },
+    unsubscribe: function(obj, attr, fn){
+      obj.off('change ' + attr, fn);
+    }
+  };
+};
+
 module.exports = Observable;
