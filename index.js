@@ -33,21 +33,40 @@ Observable.prototype.set = function(key, value, options) {
 };
 
 Observable.prototype._set = function(key, val, options) {
-  this.attributes = this.attributes || {};
-  options = options || {};
-  var silent = options.silent || false;
-  var previous = this.get(key);
-  if( previous === val ) return; // No change
-  properties.set(this.attributes, key, val);
-  if(!silent) {
-    this.emit('change', key, val, previous);
-    this.emit('change:'+key, val, previous);
-    this.emit('change '+key, val, previous);
+
+  if (val instanceof Object) {
+
+    //TODO: what about deleted properties??
+    //TODO: what about firing events up the key path?
+    var self = this;
+    Object.keys(val).forEach(function(childKey) {
+      self._set(key+'.'+childKey, val[childKey]);
+    });
+
+  } else {
+
+    this.attributes = this.attributes || {};
+    options = options || {};
+    var silent = options.silent || false;
+    var previous = this.get(key);
+    if( previous === val ) return; // No change
+    properties.set(this.attributes, key, val);
+    if(!silent) {
+      this.emit('change', key, val, previous);
+      this.emit('change:'+key, val, previous);
+      this.emit('change '+key, val, previous);
+    }
+
   }
+
 };
 
 Observable.prototype.get = function(key) {
-  return properties.get(this.attributes, key);
+  if (arguments.length === 0) {
+    return this.attributes;
+  } else {
+    return properties.get(this.attributes, key);
+  }
 };
 
 Observable.prototype.attr = function(name) {

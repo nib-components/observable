@@ -17,9 +17,9 @@ describe('Observable', function(){
     assert( this.obj.attributes.foo === 'bar' );
   });
 
-  it('should set key and value with an object', function(){
-    this.obj.set({ 'foo' : 'bar' });
-    assert( this.obj.attributes.foo === 'bar' );
+  it('should set key and value with a value object', function(){
+    this.obj.set('foo', { 'bar' : 'bar' });
+    assert( this.obj.attributes.foo.bar === 'bar' );
   });
 
   it('should set key and value with an object and options', function(){
@@ -83,6 +83,15 @@ describe('Observable', function(){
       match = true;
     });
     this.obj.set('foo.bar', 'zab');
+    assert( match === true );
+  });
+
+  it('should emit change events for nested properties on value objects', function(){
+    var match = false;
+    this.obj.on('change foo.bar', function(){
+      match = true;
+    });
+    this.obj.set('foo', {bar: 'foo'});
     assert( match === true );
   });
 
