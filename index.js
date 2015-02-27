@@ -33,6 +33,11 @@ Observable.prototype.set = function(key, value, options) {
 };
 
 Observable.prototype._set = function(key, val, options) {
+  this.attributes = this.attributes || {};
+  options = options || {};
+  var silent = options.silent || false;
+  var previous = this.get(key);
+  if( previous === val ) return; // No change
 
   if (val instanceof Object && !(val instanceof Array)) { //we don't want to set each method of an array p.s. objects should not be class objects with methods
 
@@ -45,18 +50,14 @@ Observable.prototype._set = function(key, val, options) {
 
   } else {
 
-    this.attributes = this.attributes || {};
-    options = options || {};
-    var silent = options.silent || false;
-    var previous = this.get(key);
-    if( previous === val ) return; // No change
     properties.set(this.attributes, key, val);
-    if(!silent) {
-      this.emit('change', key, val, previous);
-      this.emit('change:'+key, val, previous);
-      this.emit('change '+key, val, previous);
-    }
 
+  }
+
+  if(!silent) {
+    this.emit('change', key, val, previous);
+    this.emit('change:'+key, val, previous);
+    this.emit('change '+key, val, previous);
   }
 
 };

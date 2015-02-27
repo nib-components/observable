@@ -95,11 +95,16 @@ describe('Observable', function(){
 
   it('should emit change events for nested properties on value objects', function(){
     var match = false;
+    var parent = false;
     this.obj.on('change foo.bar', function(){
       match = true;
     });
+    this.obj.on('change foo', function(){
+      parent = true;
+    });
     this.obj.set('foo', {bar: 'foo'});
     assert( match === true );
+    assert( parent === true );
   });
 
   it('should create attributes', function(){
