@@ -34,7 +34,7 @@ Observable.prototype.set = function(key, value, options) {
 
 Observable.prototype._set = function(key, val, options) {
 
-  if (val instanceof Object) {
+  if (val instanceof Object && !(val instanceof Array)) { //we don't want to set each method of an array p.s. objects should not be class objects with methods
 
     //TODO: what about deleted properties??
     //TODO: what about firing events up the key path?

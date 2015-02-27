@@ -22,6 +22,13 @@ describe('Observable', function(){
     assert( this.obj.attributes.foo.bar === 'bar' );
   });
 
+  it('should set key and value with an array in a value object', function(){
+    this.obj.set('foo', { 'bar' : [] });
+    console.log(this.obj.attributes.foo.bar);
+    assert(this.obj.attributes.foo.bar instanceof Array);
+    assert.deepEqual(this.obj.attributes.foo.bar, []);
+  });
+
   it('should set key and value with an object and options', function(){
     this.obj.set({ 'foo' : 'bar' }, { silent: true });
     assert( this.obj.attributes.foo === 'bar');
