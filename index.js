@@ -45,7 +45,7 @@ Observable.prototype._set = function(key, val, options) {
     //TODO: what about firing events up the key path?
     var self = this;
     Object.keys(val).forEach(function(childKey) {
-      self._set(key+'.'+childKey, val[childKey]);
+      self._set(key+'.'+childKey, val[childKey], options);
     });
 
   } else {

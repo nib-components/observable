@@ -24,7 +24,6 @@ describe('Observable', function(){
 
   it('should set key and value with an array in a value object', function(){
     this.obj.set('foo', { 'bar' : [] });
-    console.log(this.obj.attributes.foo.bar);
     assert(this.obj.attributes.foo.bar instanceof Array);
     assert.deepEqual(this.obj.attributes.foo.bar, []);
   });
@@ -50,6 +49,20 @@ describe('Observable', function(){
     });
     this.obj.set('foo', 'bar', { silent: true });
     assert( match === false );
+  });
+
+  it('should be silent with a key value object', function(){
+    var match = false;
+    var child = false;
+    this.obj.on('change:foo', function(){
+      match = true;
+    });
+    this.obj.on('change:foo.bar', function(){
+      child = true;
+    });
+    this.obj.set('foo', {bar: 'foo'}, { silent: true });
+    assert( match === false );
+    assert( child === false );
   });
 
   it('should emit reactive-style events', function(){
