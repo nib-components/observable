@@ -1,6 +1,6 @@
 {
   "name": "@nib-components/observable",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Get and set properties and watch for changes",
   "main": "index.js",
   "directories": {
@@ -21,9 +21,9 @@
   "author": "Anthony Short",
   "license": "BSD",
   "dependencies": {
-    "emitter-component": "~1.0.1",
-    "type-component": "0.0.1",
-    "tea-properties": "0.1.0"
+    "emitter-component": "^1.0.1",
+    "type-component": "^0.0.1",
+    "tea-properties": "^0.1.0"
   },
   "browser": {
     "emitter": "emitter-component",
