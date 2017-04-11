@@ -1,6 +1,7 @@
 var emitter = require('emitter');
 var type = require('type');
-var properties = require('tea-properties');
+var get = require('lodash/get');
+var set = require('lodash/set');
 
 function Observable(obj){
   if( !(this instanceof Observable) ) return mixin(obj);
@@ -50,7 +51,7 @@ Observable.prototype._set = function(key, val, options) {
 
   } else {
 
-    properties.set(this.attributes, key, val);
+    set(this.attributes, key, val);
 
   }
 
@@ -66,7 +67,7 @@ Observable.prototype.get = function(key) {
   if (arguments.length === 0) {
     return this.attributes;
   } else {
-    return properties.get(this.attributes, key);
+    return get(this.attributes, key);
   }
 };
 

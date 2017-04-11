@@ -22,8 +22,9 @@
   "license": "BSD",
   "dependencies": {
     "emitter-component": "^1.0.1",
-    "type-component": "^0.0.1",
-    "tea-properties": "^0.1.0"
+    "lodash": "^4.17.4",
+    "tea-properties": "^0.1.0",
+    "type-component": "^0.0.1"
   },
   "browser": {
     "emitter": "emitter-component",
