@@ -1,6 +1,6 @@
 {
   "name": "@nib-components/observable",
-  "version": "1.1.0",
+  "version": "1.1.0-preview",
   "description": "Get and set properties and watch for changes",
   "main": "index.js",
   "directories": {
