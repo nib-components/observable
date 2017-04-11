@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha_phantomjs test/index.html"
+    "test": "mocha test/tests.js"
   },
   "repository": {
     "type": "git",
@@ -26,8 +26,7 @@
     "tea-properties": "^0.1.0",
     "type-component": "^0.0.1"
   },
-  "browser": {
-    "emitter": "emitter-component",
-    "type": "type-component"
+  "devDependencies": {
+    "mocha": "^3.2.0"
   }
 }

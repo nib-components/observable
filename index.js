@@ -1,5 +1,5 @@
-var emitter = require('emitter');
-var type = require('type');
+var emitter = require('emitter-component');
+var type = require('type-component');
 var get = require('lodash/get');
 var set = require('lodash/set');
 

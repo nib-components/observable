@@ -1,4 +1,4 @@
-var Observable = require('observable');
+var Observable = require('..');
 var assert = require('assert');
 
 describe('Observable', function(){
